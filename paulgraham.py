@@ -16,19 +16,17 @@ def parse_list_page():
     return links
 
 def get_essay_text(urls):
-    curr_files = set([f for f in os.listdir('.') if os.path.isfile(f)])
+    curr_files = set(f for f in os.listdir('./essays'))
     for i, url_end in enumerate(urls):
         if url_end not in curr_files and url_end[0:5] != "https":
             print("getting " + url_end)
             essay_url= prefix + url_end
             essay_page = requests.get(essay_url)
-            with open(url_end, "w") as f:
+            with open('essays/'+url_end, "w") as f:
                 f.write(essay_page.text)
     print("finished!")
 
 
 if __name__ == "__main__":
     urls = parse_list_page()
-    print('urls are')
-    print(urls)
     get_essay_text(urls)
