@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 prefix = "http://www.paulgraham.com/"
 url = prefix + "articles.html"
 
+# gets all of the URL's from links
 def parse_list_page():
     res = requests.get(url)
     content = res.text
@@ -15,6 +16,7 @@ def parse_list_page():
         links.append(link['href'])
     return links
 
+# gets each essay and saves it in the './essays' directory
 def get_essay_text(urls):
     curr_files = set(f for f in os.listdir('./essays'))
     for i, url_end in enumerate(urls):
